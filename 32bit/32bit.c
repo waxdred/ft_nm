@@ -17,8 +17,8 @@ void list_symbols_32(void *map, t_flag flag) {
       for (j = 0; j < (shdr[i].sh_size / sizeof(Elf32_Sym)); j++) {
         if (symtab[j].st_name != 0) {
           char type = get_symbol_type_32(&symtab[j], shdr);
-          AddNode(&symbol_list, symtab[j].st_value, type,
-                  &symstrtab[symtab[j].st_name]);
+          AddNode32(&symbol_list, symtab[j].st_value, type,
+                    &symstrtab[symtab[j].st_name]);
         }
       }
     }
@@ -27,7 +27,7 @@ void list_symbols_32(void *map, t_flag flag) {
   SymbolNode *current = symbol_list;
   printf("\n\n\nListe des symboles sort:\n");
   if (flag.p) {
-    PrintNm64(current, flag);
+    PrintNm32(current, flag);
   } else {
     Sort(&current, flag);
   }

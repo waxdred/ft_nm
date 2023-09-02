@@ -19,6 +19,7 @@ typedef struct s_flag {
   int8_t u;
   int8_t p;
   int8_t r;
+  int8_t elf;
   char *file;
 } t_flag;
 
@@ -31,6 +32,7 @@ typedef struct SymbolNode {
 
 void Sort(SymbolNode **head, t_flag flag);
 SymbolNode *getMajList(SymbolNode *head);
+SymbolNode *reverse_list(SymbolNode *head);
 void free_symbol_list(SymbolNode *head);
 char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr);
 char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr);
@@ -40,7 +42,9 @@ void list_symbols_64(void *map, t_flag flags);
 void list_symbols_32(void *map, t_flag flag);
 int get_format(void *map);
 void PrintNm64(SymbolNode *head, t_flag flag);
-void free_symbol_list(SymbolNode *head);
+void PrintNm32(SymbolNode *head, t_flag flag);
+SymbolNode *AddNode32(SymbolNode **head, Elf32_Addr address, char type,
+                      const char *name);
 SymbolNode *AddNode(SymbolNode **head, Elf64_Addr address, char type,
                     const char *name);
 

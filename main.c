@@ -35,15 +35,15 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  int format = get_format(map);
-  if (format == -1) {
+  flag.elf = get_format(map);
+  if (flag.elf == -1) {
     print_prg(flag.file, "Erreur", "Format ELF inconnu");
     munmap(map, my_stat.st_size);
     close(fd);
     return 1;
-  } else if (format == 64) {
+  } else if (flag.elf == 64) {
     list_symbols_64(map, flag);
-  } else if (format == 32) {
+  } else if (flag.elf == 32) {
     list_symbols_32(map, flag);
   }
 
