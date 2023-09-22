@@ -43,6 +43,7 @@ void list_symbols_32(void *map, t_flag flag);
 int get_format(void *map);
 void PrintNm64(SymbolNode *head, t_flag flag);
 void PrintNm32(SymbolNode *head, t_flag flag);
+void PrintNoSymbol(const char *prog);
 SymbolNode *AddNode32(SymbolNode **head, Elf32_Addr address, char type,
                       const char *name);
 SymbolNode *AddNode(SymbolNode **head, Elf64_Addr address, char type,

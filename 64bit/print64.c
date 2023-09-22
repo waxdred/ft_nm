@@ -33,3 +33,5 @@ void PrintNm32(SymbolNode *head, t_flag flag) {
     current = current->next;
   }
 }
+
+void PrintNoSymbol(const char *prog) { printf("nm: %s: no symbols\n", prog); }

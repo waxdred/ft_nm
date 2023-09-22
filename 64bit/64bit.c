@@ -25,11 +25,12 @@ void list_symbols_64(void *map, t_flag flag) {
   }
 
   SymbolNode *current = symbol_list;
-  printf("\n\n\nListe des symboles sort:\n");
   if (flag.p) {
     PrintNm64(current, flag);
-  } else {
+  } else if (current != NULL) {
     Sort(&current, flag);
+  } else {
+    PrintNoSymbol(flag.file)
   }
 
   free_symbol_list(symbol_list);
