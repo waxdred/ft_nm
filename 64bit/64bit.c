@@ -30,7 +30,7 @@ void list_symbols_64(void *map, t_flag flag) {
   } else if (current != NULL) {
     Sort(&current, flag);
   } else {
-    PrintNoSymbol(flag.file)
+    PrintNoSymbol(flag.file);
   }
 
   free_symbol_list(symbol_list);
