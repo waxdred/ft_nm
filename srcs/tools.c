@@ -1,4 +1,4 @@
-#include "../include.h"
+#include "../includes/nm.h"
 
 SymbolNode *reverse_list(SymbolNode *head) {
   SymbolNode *prev = NULL;

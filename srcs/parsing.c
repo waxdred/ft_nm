@@ -1,5 +1,4 @@
-#include "include.h"
-#include <stdio.h>
+#include "../includes/nm.h"
 
 int parse_flags(int argc, char **argv, t_flag *flags) {
   int opt;

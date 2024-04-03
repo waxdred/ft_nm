@@ -1,4 +1,4 @@
-#include "include.h"
+#include "../includes/nm.h"
 
 int get_format(void *map) {
   Elf32_Ehdr *elf_hdr = (Elf32_Ehdr *)map;

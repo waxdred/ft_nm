@@ -1,13 +1,12 @@
-#include "../include.h"
+#include "../includes/nm.h"
 
 void list_symbols_32(void *map, t_flag flag) {
   SymbolNode *symbol_list = NULL;
   Elf32_Ehdr *hdr = (Elf32_Ehdr *)map;
   Elf32_Shdr *shdr = (Elf32_Shdr *)((char *)map + hdr->e_shoff);
-  char *strtab = (char *)map + shdr[hdr->e_shstrndx].sh_offset;
   Elf32_Sym *symtab;
   char *symstrtab;
-  int i, j;
+  unsigned short i, j;
 
   // Parcourir la table des sections pour trouver la table des symboles
   for (i = 0; i < hdr->e_shnum; i++) {

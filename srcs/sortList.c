@@ -1,6 +1,4 @@
-#include "include.h"
-#include <ctype.h>
-#include <string.h>
+#include "../includes/nm.h"
 
 void sorted_insert_by_name(SymbolNode **head_ref, SymbolNode *new_node) {
   SymbolNode *current;

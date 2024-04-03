@@ -1,10 +1,8 @@
-#include "include.h"
-#include <stdio.h>
+#include "../includes/nm.h"
 
 char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr) {
   char type = ' ';
   unsigned char bind = ELF32_ST_BIND(sym->st_info);
-  unsigned char type_info = ELF32_ST_TYPE(sym->st_info);
 
   if (sym->st_shndx == SHN_UNDEF) {
     if (bind == STB_WEAK) {
@@ -55,7 +53,6 @@ char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr) {
 char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr) {
   char type = ' ';
   unsigned char bind = ELF64_ST_BIND(sym->st_info);
-  unsigned char type_info = ELF64_ST_TYPE(sym->st_info);
 
   if (sym->st_shndx == SHN_UNDEF) {
     if (bind == STB_WEAK) {
