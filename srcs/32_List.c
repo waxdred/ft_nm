@@ -1,7 +1,7 @@
 #include "../includes/nm.h"
 
-SymbolNode *AddNode32(SymbolNode **head, Elf32_Addr address, char type,
-                      const char *name) {
+SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
+                    const char *name) {
   SymbolNode *new_node = malloc(sizeof(SymbolNode));
   if (!new_node) {
     perror("malloc");
