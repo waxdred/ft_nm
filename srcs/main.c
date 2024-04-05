@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     close(fd);
     return 1;
   }
-  nm->Set_Elf(nm->flags.elf);
+  nm->Set_Elf();
   nm->List_symbols(map);
 
   munmap(map, my_stat.st_size);

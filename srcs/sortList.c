@@ -113,8 +113,5 @@ void Sort(SymbolNode **head, t_flag flags) {
   while (tmp && tmp->next) {
     tmp = tmp->next;
   }
-  if (flags.elf == 64)
-    PrintNm64(List, flags);
-  else
-    PrintNm32(List, flags);
+  PrintNm(List, flags);
 }

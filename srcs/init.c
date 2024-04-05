@@ -18,21 +18,12 @@ t_nm *init_nm(void) {
   return nm;
 }
 
-void set_elf(typesElf e) {
+void set_elf() {
   t_nm *nm = get_nm(NULL);
   nm->AddNode = &AddNode;
   nm->InitElf = &InitElf;
   nm->Free_list = &free_symbol_list;
-  switch (e) {
-  case ELF32:
-    nm->List_symbols = &list_symbols_32;
-    break;
-  case ELF64:
-    nm->List_symbols = &list_symbols_64;
-    break;
-  default:
-    break;
-  }
+  nm->List_symbols = &list_symbols;
 }
 
 void InitElf(void *map) {

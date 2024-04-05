@@ -26,12 +26,11 @@ SRC_GLOBAL						=	error.c   \
 												parsing.c     \
 												sortList.c     \
 												symbol.c     \
-												32_bit.c     \
-												32_List.c     \
-												32_print.c     \
-												64_bit.c     \
-												64_List.c     \
-												64_print.c     \
+												symbols.c     \
+												List.c     \
+												init.c     \
+												print.c     \
+												parseTable.c     \
 												tools.c     \
 												main.c
 

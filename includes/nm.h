@@ -62,7 +62,7 @@ typedef struct s_nm {
   void (*InitElf)(void *map);
   void (*ParseTable)();
   void (*List_symbols)(void *map);
-  void (*Set_Elf)(typesElf type);
+  void (*Set_Elf)();
   void (*Free_list)(SymbolNode *head);
   SymbolNode *(*AddNode)(SymbolNode **head, unsigned long address, char type,
                          const char *name);
@@ -73,7 +73,7 @@ void InitElf(void *map);
 void ParseTable64();
 void ParseTable32();
 void Sort(SymbolNode **head, t_flag flag);
-void set_elf(typesElf e);
+void set_elf();
 t_nm *get_nm(t_nm *nm);
 t_nm *init_nm(void);
 SymbolNode *getMajList(SymbolNode *head);
@@ -85,8 +85,7 @@ int parse_flags(int argc, char **argv, t_flag *flags);
 void print_prg(const char *prg, const char *prefix, const char *error);
 void list_symbols(void *map);
 int get_format(void *map);
-void PrintNm64(SymbolNode *head, t_flag flag);
-void PrintNm32(SymbolNode *head, t_flag flag);
+void PrintNm(SymbolNode *head, t_flag flag);
 void PrintNoSymbol(const char *prog);
 SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
                     const char *name);
