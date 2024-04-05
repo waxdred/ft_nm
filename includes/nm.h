@@ -14,10 +14,13 @@
 #include <unistd.h>
 #define ERR_NO_PRG "« a.out »: pas de tel fichier"
 
-#define ELF32 32
-#define ELF64 64
+#define ELF32 (1 << 0)
+#define ELF64 (1 << 1)
+#define L_ENDIAN (1 << 2)
+#define B_ENDIAN (1 << 3)
 
 typedef int typesElf;
+typedef int typesEndian;
 
 typedef struct s_flag {
   int8_t a;
@@ -52,6 +55,7 @@ typedef struct s_elf64 {
 
 typedef struct s_nm {
   typesElf type;
+  typesEndian endian;
   t_flag flags;
   SymbolNode *head;
   t_elf32 elf32;
@@ -89,4 +93,5 @@ void PrintNm(SymbolNode *head, t_flag flag);
 void PrintNoSymbol(const char *prog);
 SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
                     const char *name);
+uint64_t swap_uint64(uint64_t val);
 #endif
