@@ -13,30 +13,54 @@ int isPrt(char c) {
 
 void PrintNm(SymbolNode *head, t_flag flag) {
   SymbolNode *current = head;
-  if (flag.r) {
-    SymbolNode *reversed = reverse_list(head);
-    current = reversed;
-  }
+  t_nm *nm = get_nm(NULL);
   while (current) {
     if (flag.u) {
-      if (current->address == ULONG_MAX && current->type != 'A')
-        printf("                 %c %s\n", current->type, current->name);
+      if (current->address == ULONG_MAX && current->type != 'A') {
+        if (nm->type == ELF64)
+          printf("                 %c %s\n", current->type, current->name);
+        else if (nm->type == ELF32)
+          printf("         %c %s\n", current->type, current->name);
+      }
     } else if (current->type != 'A') {
       if (current->address != ULONG_MAX) {
-        if (flag.g && isupper(current->type)) {
-          printf("%016lx %c %s\n", current->address, current->type,
-                 current->name);
-
-        } else if (!flag.g)
-          printf("%016lx %c %s\n", current->address, current->type,
-                 current->name);
+        if (nm->type == ELF64) {
+          if (flag.g && isupper(current->type)) {
+            printf("%016lx %c %s\n", current->address, current->type,
+                   current->name);
+          } else if (!flag.g) {
+            printf("%016lx %c %s\n", current->address, current->type,
+                   current->name);
+          }
+        } else if (nm->type == ELF32) {
+          if (flag.g && isupper(current->type)) {
+            printf("%08lx %c %s\n",
+                   (unsigned long)(current->address & 0xFFFFFFFF),
+                   current->type, current->name);
+          } else if (!flag.g) {
+            printf("%08lx %c %s\n",
+                   (unsigned long)(current->address & 0xFFFFFFFF),
+                   current->type, current->name);
+          }
+        }
       } else {
-        if (flag.g && isupper(current->type))
-          printf("                 %c %s\n", current->type, current->name);
-        else if (isPrt(current->type)) {
-          printf("0000000000000000 %c %s\n", current->type, current->name);
-        } else if (!flag.g)
-          printf("                 %c %s\n", current->type, current->name);
+        if (flag.g && isupper(current->type)) {
+          if (nm->type == ELF64) {
+            printf("                 %c %s\n", current->type, current->name);
+          } else if (nm->type == ELF32) {
+            printf("         %c %s\n", current->type, current->name);
+          }
+        } else if (isPrt(current->type)) {
+          if (nm->type == ELF64)
+            printf("0000000000000000 %c %s\n", current->type, current->name);
+          else if (nm->type == ELF32)
+            printf("00000000 %c %s\n", current->type, current->name);
+        } else if (!flag.g) {
+          if (nm->type == ELF64)
+            printf("                 %c %s\n", current->type, current->name);
+          else if (nm->type == ELF32)
+            printf("         %c %s\n", current->type, current->name);
+        }
       }
     }
     current = current->next;

@@ -11,9 +11,17 @@ void ParseTable32() {
       elf.symstrtab = (char *)map + elf.shdr[elf.shdr[i].sh_link].sh_offset;
       for (j = 0; j < (elf.shdr[i].sh_size / sizeof(Elf32_Sym)); j++) {
         if (elf.symtab[j].st_name != 0) {
-          char type = get_symbol_type_32(&elf.symtab[j], elf.shdr);
-          nm->AddNode(&nm->head, elf.symtab[j].st_value, type,
-                      &elf.symstrtab[elf.symtab[j].st_name]);
+          uint64_t st_value = elf.symtab[j].st_value;
+          if (nm->endian == B_ENDIAN) {
+            st_value = swap_uint64(st_value);
+          }
+          uint64_t st_name_offset = elf.symtab[j].st_name;
+          if (nm->endian == B_ENDIAN) {
+            st_name_offset = swap_uint64(st_name_offset);
+          }
+          char type = get_symbol_type_32(&elf.symtab[j], elf.shdr,
+                                         &elf.symstrtab[st_name_offset]);
+          AddNode(&nm->head, st_value, type, &elf.symstrtab[st_name_offset]);
         }
       }
     }

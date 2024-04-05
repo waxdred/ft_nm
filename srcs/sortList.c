@@ -175,4 +175,6 @@ void Sort(SymbolNode **head, t_flag flags) {
   }
 
   PrintNm(List, flags);
+  t_nm *nm = get_nm(NULL);
+  nm->Free_list(List);
 }

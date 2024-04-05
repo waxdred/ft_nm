@@ -70,7 +70,6 @@ typedef struct s_nm {
   void (*Free_list)(SymbolNode *head);
   SymbolNode *(*AddNode)(SymbolNode **head, unsigned long address, char type,
                          const char *name);
-
 } t_nm;
 
 void InitElf(void *map);
@@ -84,7 +83,7 @@ SymbolNode *getMajList(SymbolNode *head);
 SymbolNode *reverse_list(SymbolNode *head);
 void free_symbol_list(SymbolNode *head);
 char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name);
-char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr);
+char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name);
 int parse_flags(int argc, char **argv, t_flag *flags);
 void print_prg(const char *prg, const char *prefix, const char *error);
 void list_symbols(void *map);
