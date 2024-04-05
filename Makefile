@@ -76,12 +76,10 @@ $(NAME)	: $(DEPENDS) $(OBJS)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 clean:
-	@make --quiet -C $(DIR_LIBFT) clean
 	@printf "[✅]\tDelete $(COLOR_RED)object of $(DIR_GLOBAL)$(COLOR_NORM) of $(NAME)\n"
 	@rm -rf $(DIR_OBJ)
 
 fclean: clean
-	@make --quiet -C $(DIR_LIBFT) fclean
 	@printf "[✅]\tDelete $(COLOR_RED)all binary on $(DIR_LIBFT)$(COLOR_NORM)\n"
 	@rm -rf $(NAME)
 
