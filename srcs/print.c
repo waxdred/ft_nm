@@ -1,4 +1,5 @@
 #include "../includes/nm.h"
+#include <stdio.h>
 
 int isPrt(char c) {
   char *str = "RrDTW";
@@ -37,7 +38,7 @@ void PrintNm(SymbolNode *head, t_flag flag) {
         } else if (!flag.g)
           printf("                 %c %s\n", current->type, current->name);
       }
-      current = current->next;
     }
+    current = current->next;
   }
 }

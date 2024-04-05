@@ -16,12 +16,10 @@ int get_format(void *map) {
   } else if (c == ELFCLASS64) {
     flags = ELF64;
     if (elf_hdr->e_ident[EI_DATA] == ELFDATA2LSB) {
-      printf("Little-endian\n");
       // Little-endian
       flags |= L_ENDIAN;
     } else if (elf_hdr->e_ident[EI_DATA] == ELFDATA2MSB) {
       // Big-endian
-      printf("Big-endian\n");
       flags |= B_ENDIAN;
     }
   }

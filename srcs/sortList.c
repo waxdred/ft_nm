@@ -83,8 +83,7 @@ int filter_single_underscore_min(const char *name) {
 }
 
 // TODO check list return position Start sort
-int sortStart(SymbolNode **head) {
-  int info[6] = {0, 0, 0, 0, 0, 0};
+int *sortStart(SymbolNode **head, int *info) {
   SymbolNode *tmp = *head;
 
   while (tmp->next) {
@@ -104,15 +103,19 @@ int sortStart(SymbolNode **head) {
   }
   for (int i = 0; i < 6; i++) {
     if (info[i] == 1) {
-      return i;
+      info[6] = i;
+      break;
     }
   }
-  return -1;
+  return info;
 }
 
 void Sort(SymbolNode **head, t_flag flags) {
   SymbolNode *List = NULL;
-  int start = sortStart(head);
+  int info[] = {0, 0, 0, 0, 0, 0, 0};
+  int *d;
+  d = sortStart(head, info);
+  int start = d[6];
 
   switch (start) {
   case 0:
@@ -144,38 +147,31 @@ void Sort(SymbolNode **head, t_flag flags) {
   }
   SymbolNode *tmp = List;
   // let's crete while and increment start for add filter
-  while (tmp && tmp->next) {
-    tmp = tmp->next;
-    while (tmp->next == NULL && start < 6) {
-      if (tmp->next == NULL) {
-        switch (start) {
-        case 0:
-          tmp->next = get_filtered_list(*head, filter_maj);
-          start++;
-          break;
-        case 1:
-          tmp->next = get_filtered_list(*head, filter_single_underscore_maj);
-          start++;
-          break;
-        case 2:
-          tmp->next = get_filtered_list(*head, filter_double_underscore_maj);
-          start++;
-          break;
-        case 3:
-          tmp->next = get_filtered_list(*head, filter_double_underscore_min);
-          start++;
-          break;
-        case 4:
-          tmp->next = get_filtered_list(*head, filter_single_underscore_min);
-          start++;
-          break;
-        case 5:
-          tmp->next = get_filtered_list(*head, filter_min);
-          start++;
-          break;
-        }
-      }
+  while (start < 6) {
+    while (tmp && tmp->next) {
+      tmp = tmp->next;
     }
+    switch (start) {
+    case 0:
+      tmp->next = get_filtered_list(*head, filter_maj);
+      break;
+    case 1:
+      tmp->next = get_filtered_list(*head, filter_single_underscore_maj);
+      break;
+    case 2:
+      tmp->next = get_filtered_list(*head, filter_double_underscore_maj);
+      break;
+    case 3:
+      tmp->next = get_filtered_list(*head, filter_double_underscore_min);
+      break;
+    case 4:
+      tmp->next = get_filtered_list(*head, filter_single_underscore_min);
+      break;
+    case 5:
+      tmp->next = get_filtered_list(*head, filter_min);
+      break;
+    }
+    start++;
   }
 
   PrintNm(List, flags);
