@@ -49,6 +49,7 @@ int main(int argc, char **argv) {
 
   munmap(map, my_stat.st_size);
   close(fd);
+  free(nm);
 
   return 0;
 }

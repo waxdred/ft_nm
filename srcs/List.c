@@ -26,7 +26,6 @@ SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
     new_node->next = current->next;
     current->next = new_node;
   }
-
   return new_node;
 }
 

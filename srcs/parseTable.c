@@ -31,7 +31,8 @@ void ParseTable64() {
       elf.symstrtab = (char *)map + elf.shdr[elf.shdr[i].sh_link].sh_offset;
       for (j = 0; j < (elf.shdr[i].sh_size / sizeof(Elf64_Sym)); j++) {
         if (elf.symtab[j].st_name != 0) {
-          char type = get_symbol_type(&elf.symtab[j], elf.shdr);
+          char type = get_symbol_type(&elf.symtab[j], elf.shdr,
+                                      &elf.symstrtab[elf.symtab[j].st_name]);
           AddNode(&nm->head, elf.symtab[j].st_value, type,
                   &elf.symstrtab[elf.symtab[j].st_name]);
         }

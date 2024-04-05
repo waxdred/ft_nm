@@ -25,7 +25,6 @@ int parse_flags(int argc, char **argv, t_flag *flags) {
     }
   }
   if (optind < argc) {
-    printf("arggg----> : %s \n", argv[optind]);
     flags->file = argv[optind];
   } else {
     fprintf(stderr, "Expected filename after options\n");

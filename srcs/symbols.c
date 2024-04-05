@@ -2,17 +2,16 @@
 
 void list_symbols(void *map) {
   t_nm *nm = get_nm(NULL);
-  SymbolNode *symbol_list = NULL;
   nm->InitElf(map);
 
   nm->ParseTable();
 
-  SymbolNode *current = symbol_list;
-  printf("\n\n\nListe des symboles sort:\n");
-  if (nm->flags.p) {
-    PrintNm(current, nm->flags);
+  if (nm->head == NULL) {
+    printf("No symbols\n");
+  } else if (nm->flags.p) {
+    PrintNm(nm->head, nm->flags);
   } else {
-    Sort(&current, nm->flags);
+    Sort(&nm->head, nm->flags);
   }
-  nm->Free_list(symbol_list);
+  nm->Free_list(nm->head);
 }

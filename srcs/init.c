@@ -15,6 +15,7 @@ t_nm *init_nm(void) {
   }
   bzero(nm, sizeof(t_nm));
   nm->Set_Elf = &set_elf;
+  get_nm(nm);
   return nm;
 }
 
