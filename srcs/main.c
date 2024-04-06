@@ -31,14 +31,14 @@ int main(int argc, char **argv) {
   }
 
   void *map = mmap(NULL, my_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-  if (map == (void *)-1) {
+  if (map == MAP_FAILED) {
     print_prg(nm->flags.file, "mmap", NULL);
     close(fd);
     return 1;
   }
 
   nm->flags.elf = get_format(map);
-  if (nm->flags.elf == -1) {
+  if (nm->flags.elf == 0) {
     print_prg(nm->flags.file, "Erreur", "Format ELF inconnu");
     munmap(map, my_stat.st_size);
     close(fd);

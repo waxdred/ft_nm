@@ -2,12 +2,18 @@
 
 void sorted_insert_by_name(SymbolNode **head_ref, SymbolNode *new_node) {
   SymbolNode *current;
-  if (!*head_ref || strcmp(new_node->name, (*head_ref)->name) < 0) {
+  if (!*head_ref || strcmp(new_node->name, (*head_ref)->name) < 0 ||
+      (strcmp(new_node->name, (*head_ref)->name) == 0 &&
+       new_node->address < (*head_ref)->address)) {
     new_node->next = *head_ref;
     *head_ref = new_node;
   } else {
     current = *head_ref;
     while (current->next && strcmp(current->next->name, new_node->name) < 0) {
+      current = current->next;
+    }
+    while (current->next && strcmp(current->next->name, new_node->name) == 0 &&
+           current->next->address < new_node->address) {
       current = current->next;
     }
     new_node->next = current->next;
