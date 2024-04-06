@@ -2,7 +2,7 @@
 
 #define DEBUG 0
 
-#define NAME "__frame_dummy_init_array_entry"
+#define NAME "__local_asan_preinit"
 
 char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
   int TEST = strcmp(name, NAME) == 0 ? 1 : 0;
@@ -32,6 +32,9 @@ char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
     type = 'C'; // common symbol
   } else {
     switch (shdr[sym->st_shndx].sh_type) {
+    case SHT_PREINIT_ARRAY:
+      type = 'D'; // read-only
+      break;
     case SHT_NOTE:
       type = 'r'; // read-only data
       break;
@@ -141,6 +144,9 @@ char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name) {
       break;
     case SHT_DYNAMIC:
       type = 'D'; // writable data
+      break;
+    case SHT_PREINIT_ARRAY:
+      type = 'D'; // read-only
       break;
     }
 

@@ -16,6 +16,9 @@ void PrintNm(SymbolNode *head, t_flag flag) {
   t_nm *nm = get_nm(NULL);
   while (current) {
     if (flag.u) {
+      if (flag.a) {
+        printf("%s:", nm->flags.file);
+      }
       if (current->address == ULONG_MAX && current->type != 'A') {
         if (nm->type == ELF64)
           printf("                 %c %s\n", current->type, current->name);
@@ -24,6 +27,9 @@ void PrintNm(SymbolNode *head, t_flag flag) {
       }
     } else if (current->type != 'A') {
       if (current->address != ULONG_MAX) {
+        if (flag.a) {
+          printf("%s:", nm->flags.file);
+        }
         if (nm->type == ELF64) {
           if (flag.g && isupper(current->type)) {
             printf("%016lx %c %s\n", current->address, current->type,
@@ -45,17 +51,26 @@ void PrintNm(SymbolNode *head, t_flag flag) {
         }
       } else {
         if (flag.g && isupper(current->type)) {
+          if (flag.a) {
+            printf("%s:", nm->flags.file);
+          }
           if (nm->type == ELF64) {
             printf("                 %c %s\n", current->type, current->name);
           } else if (nm->type == ELF32) {
             printf("         %c %s\n", current->type, current->name);
           }
         } else if (isPrt(current->type)) {
+          if (flag.a) {
+            printf("%s:", nm->flags.file);
+          }
           if (nm->type == ELF64)
             printf("0000000000000000 %c %s\n", current->type, current->name);
           else if (nm->type == ELF32)
             printf("00000000 %c %s\n", current->type, current->name);
         } else if (!flag.g) {
+          if (flag.a) {
+            printf("%s:", nm->flags.file);
+          }
           if (nm->type == ELF64)
             printf("                 %c %s\n", current->type, current->name);
           else if (nm->type == ELF32)

@@ -27,6 +27,8 @@ typedef struct s_flag {
   int8_t g;
   int8_t u;
   int8_t p;
+  int8_t e;
+  int8_t D;
   int8_t r;
   int8_t elf;
   char *file;
@@ -72,25 +74,25 @@ typedef struct s_nm {
                          const char *name);
 } t_nm;
 
-void InitElf(void *map);
-void ParseTable64();
-void ParseTable32();
-void Sort(SymbolNode **head, t_flag flag);
-void set_elf();
-t_nm *get_nm(t_nm *nm);
-t_nm *init_nm(void);
-SymbolNode *getMajList(SymbolNode *head);
-SymbolNode *reverse_list(SymbolNode *head);
-void free_symbol_list(SymbolNode *head);
-char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name);
-char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name);
-int parse_flags(int argc, char **argv, t_flag *flags);
-void print_prg(const char *prg, const char *prefix, const char *error);
-void list_symbols(void *map);
-int get_format(void *map);
-void PrintNm(SymbolNode *head, t_flag flag);
-void PrintNoSymbol(const char *prog);
 SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
                     const char *name);
+SymbolNode *getMajList(SymbolNode *head);
+SymbolNode *reverse_list(SymbolNode *head);
+char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name);
+char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name);
+int get_format(void *map);
+int parse_flags(int ac, char **argv);
+t_nm *get_nm(t_nm *nm);
+t_nm *init_nm(void);
 uint64_t swap_uint64(uint64_t val);
+void InitElf(void *map);
+void ParseTable32();
+void ParseTable64();
+void PrintNm(SymbolNode *head, t_flag flag);
+void PrintNoSymbol(const char *prog);
+void Sort(SymbolNode **head, t_flag flag);
+void free_symbol_list(SymbolNode *head);
+void list_symbols(void *map);
+void print_prg(const char *prg, const char *prefix, const char *error);
+void set_elf();
 #endif

@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  if (parse_flags(argc, argv, &nm->flags) != 0) {
+  if (parse_flags(argc, argv) != 0) {
     return 1;
   }
 
