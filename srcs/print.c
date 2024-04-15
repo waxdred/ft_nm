@@ -21,9 +21,17 @@ void PrintNm(SymbolNode *head, t_flag flag) {
       }
       if (current->address == ULONG_MAX && current->type != 'A') {
         if (nm->type == ELF64)
-          printf("                 %c %s\n", current->type, current->name);
+          printf("                 %c %s%s\n", current->type,
+                 current->unscore == NO_UNDER_SCORE ? ""
+                 : current->unscore == UNDER_SCORE  ? "_"
+                                                    : "__",
+                 current->name);
         else if (nm->type == ELF32)
-          printf("         %c %s\n", current->type, current->name);
+          printf("         %c %s%s\n", current->type,
+                 current->unscore == NO_UNDER_SCORE ? ""
+                 : current->unscore == UNDER_SCORE  ? "_"
+                                                    : "__",
+                 current->name);
       }
     } else if (current->type != 'A') {
       if (current->address != ULONG_MAX) {
@@ -32,21 +40,35 @@ void PrintNm(SymbolNode *head, t_flag flag) {
         }
         if (nm->type == ELF64) {
           if (flag.g && isupper(current->type)) {
-            printf("%016lx %c %s\n", current->address, current->type,
+            printf("%016lx %c %s%s\n", current->address, current->type,
+                   current->unscore == NO_UNDER_SCORE ? ""
+                   : current->unscore == UNDER_SCORE  ? "_"
+                                                      : "__",
                    current->name);
           } else if (!flag.g) {
-            printf("%016lx %c %s\n", current->address, current->type,
+            printf("%016lx %c %s%s\n", current->address, current->type,
+                   current->unscore == NO_UNDER_SCORE ? ""
+                   : current->unscore == UNDER_SCORE  ? "_"
+                                                      : "__",
                    current->name);
           }
         } else if (nm->type == ELF32) {
           if (flag.g && isupper(current->type)) {
-            printf("%08lx %c %s\n",
+            printf("%08lx %c %s%s\n",
                    (unsigned long)(current->address & 0xFFFFFFFF),
-                   current->type, current->name);
+                   current->type,
+                   current->unscore == NO_UNDER_SCORE ? ""
+                   : current->unscore == UNDER_SCORE  ? "_"
+                                                      : "__",
+                   current->name);
           } else if (!flag.g) {
-            printf("%08lx %c %s\n",
+            printf("%08lx %c %s%s\n",
                    (unsigned long)(current->address & 0xFFFFFFFF),
-                   current->type, current->name);
+                   current->type,
+                   current->unscore == NO_UNDER_SCORE ? ""
+                   : current->unscore == UNDER_SCORE  ? "_"
+                                                      : "__",
+                   current->name);
           }
         }
       } else {
@@ -55,7 +77,11 @@ void PrintNm(SymbolNode *head, t_flag flag) {
             printf("%s:", nm->flags.file);
           }
           if (nm->type == ELF64) {
-            printf("                 %c %s\n", current->type, current->name);
+            printf("                 %c %s%s\n", current->type,
+                   current->unscore == NO_UNDER_SCORE ? ""
+                   : current->unscore == UNDER_SCORE  ? "_"
+                                                      : "__",
+                   current->name);
           } else if (nm->type == ELF32) {
             printf("         %c %s\n", current->type, current->name);
           }
@@ -64,17 +90,33 @@ void PrintNm(SymbolNode *head, t_flag flag) {
             printf("%s:", nm->flags.file);
           }
           if (nm->type == ELF64)
-            printf("0000000000000000 %c %s\n", current->type, current->name);
+            printf("0000000000000000 %c %s%s\n", current->type,
+                   current->unscore == NO_UNDER_SCORE ? ""
+                   : current->unscore == UNDER_SCORE  ? "_"
+                                                      : "__",
+                   current->name);
           else if (nm->type == ELF32)
-            printf("00000000 %c %s\n", current->type, current->name);
+            printf("00000000 %c %s%s\n", current->type,
+                   current->unscore == NO_UNDER_SCORE ? ""
+                   : current->unscore == UNDER_SCORE  ? "_"
+                                                      : "__",
+                   current->name);
         } else if (!flag.g) {
           if (flag.a) {
             printf("%s:", nm->flags.file);
           }
           if (nm->type == ELF64)
-            printf("                 %c %s\n", current->type, current->name);
+            printf("                 %c %s%s\n", current->type,
+                   current->unscore == NO_UNDER_SCORE ? ""
+                   : current->unscore == UNDER_SCORE  ? "_"
+                                                      : "__",
+                   current->name);
           else if (nm->type == ELF32)
-            printf("         %c %s\n", current->type, current->name);
+            printf("         %c %s%s\n", current->type,
+                   current->unscore == NO_UNDER_SCORE ? ""
+                   : current->unscore == UNDER_SCORE  ? "_"
+                                                      : "__",
+                   current->name);
         }
       }
     }
