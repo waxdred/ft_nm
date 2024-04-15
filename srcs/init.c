@@ -13,7 +13,7 @@ t_nm *init_nm(void) {
   if (nm == NULL) {
     return NULL;
   }
-  bzero(nm, sizeof(t_nm));
+  ft_bzero(nm, sizeof(t_nm));
   nm->Set_Elf = &set_elf;
   get_nm(nm);
   return nm;
