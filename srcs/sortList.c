@@ -41,10 +41,17 @@ void Sort(SymbolNode **head) {
   SymbolNode *left = *head;
   SymbolNode *right = mid;
   while (left && right) {
-    if (compareNames(left, right) < 0) {
+    int cmp = compareNames(left, right);
+    if (cmp < 0) {
       *tail = left;
       left = left->next;
+    } else if (cmp > 0) {
+      *tail = right;
+      right = right->next;
     } else {
+      *tail = left;
+      left = left->next;
+      tail = &(*tail)->next;
       *tail = right;
       right = right->next;
     }
@@ -55,6 +62,5 @@ void Sort(SymbolNode **head) {
   if (*tail) {
     (*tail)->prev = NULL;
   }
-
   *head = sorted;
 }
