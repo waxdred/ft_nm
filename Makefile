@@ -41,7 +41,7 @@ SRC_GLOBAL						=	error.c   \
 
 NAME	=	ft_nm
 CC		=	cc
-CFLAGS	=	-Wall -Werror -Wextra -O3 -g3 -ggdb -fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra -O3 -g3 -ggdb# -fsanitize=address
 # Sources
 DIRS_SRC			=	$(DIR_GLOBAL)
 
