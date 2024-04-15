@@ -1,8 +1,9 @@
 #include "../includes/nm.h"
+#include <stdio.h>
 
-#define DEBUG 0
+#define DEBUG 1
 
-#define NAME "__local_asan_preinit"
+#define NAME ".LFB3"
 
 char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
   int TEST = ft_strcmp(name, NAME) == 0 ? 1 : 0;
@@ -14,10 +15,11 @@ char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
   //
   if (TEST && DEBUG) {
     // print name of the section
+    printf("32\n");
     printf("sh_name: %s\n", name);
     printf("i = %d\n", i);
     printf("sym->st_shndx: %d, bind = %c\n", sym->st_shndx, bind);
-    printf("shdr[sym->st_shndx].sh_type: %d\n", shdr[sym->st_shndx].sh_type);
+    // printf("shdr[sym->st_shndx].sh_type: %d\n", shdr[sym->st_shndx].sh_type);
     sleep(1);
   }
   if (sym->st_shndx == SHN_UNDEF) {
@@ -82,6 +84,9 @@ char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
       if (type >= 'A' && type <= 'Z')
         type += 32;
     }
+  }
+  if (TEST && DEBUG) {
+    printf("type = %c\n", type);
   }
   return type;
 }
