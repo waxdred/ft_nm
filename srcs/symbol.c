@@ -5,7 +5,7 @@
 #define NAME "__local_asan_preinit"
 
 char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
-  int TEST = strcmp(name, NAME) == 0 ? 1 : 0;
+  int TEST = ft_strcmp(name, NAME) == 0 ? 1 : 0;
   static int i = 0;
   char type = ' ';
   unsigned char bind = ELF32_ST_BIND(sym->st_info);
@@ -87,7 +87,7 @@ char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
 }
 
 char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name) {
-  int TEST = strcmp(name, NAME) == 0 ? 1 : 0;
+  int TEST = ft_strcmp(name, NAME) == 0 ? 1 : 0;
   static int i = 0;
   char type = ' ';
   unsigned char bind = ELF64_ST_BIND(sym->st_info);
