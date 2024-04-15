@@ -12,7 +12,7 @@ static void ft_getopt(char *av, char *flag, int *opt) {
     return;
   }
   *opt = av[1];
-  optchar = strchr(flag, *opt);
+  optchar = ft_strchr(flag, *opt);
   if (optchar == NULL) {
     *opt = '?';
     return;
