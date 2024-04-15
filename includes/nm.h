@@ -22,6 +22,8 @@
 #define NO_UNDER_SCORE 0
 #define UNDER_SCORE 1
 #define DOUBLE_UNDER_SCORE 2
+#define TRIPLE_UNDER_SCORE 3
+#define DOT 4
 
 typedef int typeUnscore;
 
@@ -47,6 +49,7 @@ typedef struct SymbolNode {
   typeUnscore unscore;
   struct SymbolNode *next;
   struct SymbolNode *prev;
+  struct SymbolNode *duplicate;
 } SymbolNode;
 
 typedef struct s_elf32 {
