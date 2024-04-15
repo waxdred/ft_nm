@@ -19,6 +19,12 @@
 #define L_ENDIAN (1 << 2)
 #define B_ENDIAN (1 << 3)
 
+#define NO_UNDER_SCORE 0
+#define UNDER_SCORE 1
+#define DOUBLE_UNDER_SCORE 2
+
+typedef int typeUnscore;
+
 typedef int typesElf;
 typedef int typesEndian;
 
@@ -38,7 +44,9 @@ typedef struct SymbolNode {
   unsigned long address;
   char type;
   char name[256];
+  typeUnscore unscore;
   struct SymbolNode *next;
+  struct SymbolNode *prev;
 } SymbolNode;
 
 typedef struct s_elf32 {
@@ -89,10 +97,16 @@ void InitElf(void *map);
 void ParseTable32();
 void ParseTable64();
 void PrintNm(SymbolNode *head, t_flag flag);
+char *ft_strchr(const char *str, int c);
+void ft_bzero(void *s, size_t n);
 void PrintNoSymbol(const char *prog);
-void Sort(SymbolNode **head, t_flag flag);
+int ft_strcmp(const char *s1, const char *s2);
+int ft_strcasecmp(const char *s1, const char *s2);
+void Sort(SymbolNode **head);
 void free_symbol_list(SymbolNode *head);
 void list_symbols(void *map);
 void print_prg(const char *prg, const char *prefix, const char *error);
 void set_elf();
+char *ft_strcpy(char *dst, const char *src);
+char *ft_strScpy(char *dst, const char *src, int start);
 #endif
