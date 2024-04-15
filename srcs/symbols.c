@@ -11,7 +11,8 @@ void list_symbols(void *map) {
   } else if (nm->flags.p) {
     PrintNm(nm->head, nm->flags);
   } else {
-    Sort(&nm->head, nm->flags);
+    Sort(&nm->head);
+    PrintNm(nm->head, nm->flags);
   }
   nm->Free_list(nm->head);
 }
