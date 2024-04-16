@@ -4,6 +4,7 @@
 #include <elf.h>
 #include <fcntl.h>
 #include <limits.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,21 +17,16 @@
 
 #define SPECIAL_CHARS "_.-@#!&$%*"
 
-// Section Header Table
+// Define Print
+#define PRINT_SYMBOL 0
+#define PRINT_ADDR_SYMBOL 1
+#define PRINT_NO_ADDR_SYMBOL 2
 
+// Section Header Table
 #define ELF32 (1 << 0)
 #define ELF64 (1 << 1)
 #define L_ENDIAN (1 << 2)
 #define B_ENDIAN (1 << 3)
-
-// #define NO_UNDER_SCORE 0
-// #define UNDER_SCORE 1
-// #define DOUBLE_UNDER_SCORE 2
-// #define TRIPLE_UNDER_SCORE 3
-// #define DOT 4
-
-typedef int typeUnscore;
-
 typedef int typesElf;
 typedef int typesEndian;
 
@@ -89,16 +85,20 @@ typedef struct s_nm {
                          const char *name);
 } t_nm;
 
-SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
-                    const char *name);
-SymbolNode *getMajList(SymbolNode *head);
-SymbolNode *reverse_list(SymbolNode *head);
 char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name,
                      char *section_name);
 
 char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name,
                         char *section_name);
+char *ft_strScpy(char *dst, const char *src, int start);
+char *ft_strchr(const char *str, int c);
+char *ft_strcpy(char *dst, const char *src);
+char *ft_strdup(const char *s);
+int ft_strcasecmp(const char *s1, const char *s2);
+int ft_strcmp(const char *s1, const char *s2);
 int get_format(void *map);
+void Print_Line_Addr(unsigned long addr, char type, char *name, typesElf is,
+                     int isAddr);
 int parse_flags(int ac, char **argv);
 t_nm *get_nm(t_nm *nm);
 t_nm *init_nm(void);
@@ -107,17 +107,15 @@ void InitElf(void *map);
 void ParseTable32();
 void ParseTable64();
 void PrintNm(SymbolNode *head, t_flag flag);
-char *ft_strchr(const char *str, int c);
-void ft_bzero(void *s, size_t n);
 void PrintNoSymbol(const char *prog);
-int ft_strcmp(const char *s1, const char *s2);
-int ft_strcasecmp(const char *s1, const char *s2);
 void Sort(SymbolNode **head);
 void free_symbol_list(SymbolNode *head);
+void ft_bzero(void *s, size_t n);
 void list_symbols(void *map);
+SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
+                    const char *name);
+SymbolNode *getMajList(SymbolNode *head);
+SymbolNode *reverse_list(SymbolNode *head);
 void print_prg(const char *prg, const char *prefix, const char *error);
 void set_elf();
-char *ft_strcpy(char *dst, const char *src);
-char *ft_strScpy(char *dst, const char *src, int start);
-char *ft_strdup(const char *s);
 #endif
