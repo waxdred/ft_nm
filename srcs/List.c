@@ -60,7 +60,6 @@ SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
     while (tmp->duplicate != NULL) {
       tmp = tmp->duplicate;
     }
-    printf("Duplicate found: %08lx %s\n", new_node->address, new_node->name);
     tmp->duplicate = new_node;
   } else if (!*head) {
     new_node->next = *head;
