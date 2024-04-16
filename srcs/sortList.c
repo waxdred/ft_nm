@@ -28,9 +28,9 @@ int compareNames(SymbolNode *a, SymbolNode *b) {
   char *nameB = TrimSpecialChars(b->name);
   int result = ft_strcasecmp(nameA, nameB);
   if (result == 0) {
-    if (a->type < b->type) {
+    if (ft_strcmp(nameA, nameB) < 0) {
       result = -1;
-    } else if (a->type > b->type) {
+    } else if (ft_strcmp(nameA, nameB) > 0) {
       result = 1;
     } else {
       result = 0;
