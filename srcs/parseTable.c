@@ -4,6 +4,10 @@ void ParseTable32() {
   t_nm *nm = get_nm(NULL);
   void *map = get_nm(NULL)->map;
   t_elf32 elf = get_nm(NULL)->elf32;
+  Elf32_Ehdr *ehdr = (Elf32_Ehdr *)map;
+  Elf32_Shdr *shdr = (Elf32_Shdr *)(map + ehdr->e_shoff);
+  Elf32_Shdr *sh_strtab = &shdr[ehdr->e_shstrndx];
+  const char *const sh_strtab_p = map + sh_strtab->sh_offset;
   unsigned long i, j;
   for (i = 0; i < elf.hdr->e_shnum; i++) {
     if (elf.shdr[i].sh_type == SHT_SYMTAB) {
@@ -19,8 +23,9 @@ void ParseTable32() {
           if (nm->endian == B_ENDIAN) {
             st_name_offset = swap_uint64(st_name_offset);
           }
-          char type = get_symbol_type_32(&elf.symtab[j], elf.shdr,
-                                         &elf.symstrtab[st_name_offset]);
+          char type = get_symbol_type_32(
+              &elf.symtab[j], elf.shdr, &elf.symstrtab[st_name_offset],
+              (char *)(sh_strtab_p + shdr[i].sh_name));
           AddNode(&nm->head, st_value, type, &elf.symstrtab[st_name_offset]);
         }
       }
@@ -32,6 +37,10 @@ void ParseTable64() {
   t_nm *nm = get_nm(NULL);
   void *map = get_nm(NULL)->map;
   t_elf64 elf = get_nm(NULL)->elf64;
+  Elf64_Ehdr *ehdr = (Elf64_Ehdr *)map;
+  Elf64_Shdr *shdr = (Elf64_Shdr *)(map + ehdr->e_shoff);
+  Elf64_Shdr *sh_strtab = &shdr[ehdr->e_shstrndx];
+  const char *const sh_strtab_p = map + sh_strtab->sh_offset;
   unsigned long i, j;
   for (i = 0; i < elf.hdr->e_shnum; i++) {
     if (elf.shdr[i].sh_type == SHT_SYMTAB) {
@@ -48,7 +57,8 @@ void ParseTable64() {
             st_name_offset = swap_uint64(st_name_offset);
           }
           char type = get_symbol_type(&elf.symtab[j], elf.shdr,
-                                      &elf.symstrtab[st_name_offset]);
+                                      &elf.symstrtab[st_name_offset],
+                                      (char *)(sh_strtab_p + shdr[i].sh_name));
           AddNode(&nm->head, st_value, type, &elf.symstrtab[st_name_offset]);
         }
       }
