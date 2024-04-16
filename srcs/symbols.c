@@ -7,7 +7,9 @@ void list_symbols(void *map) {
   nm->ParseTable();
 
   if (nm->head == NULL) {
-    printf("No symbols\n");
+    ft_putstr_fd("ft_nm: ", STDERR_FILENO);
+    ft_putstr_fd(nm->flags.file, STDERR_FILENO);
+    ft_putstr_fd(": aucun symbole\n", STDERR_FILENO);
   } else if (nm->flags.p) {
     PrintNm(nm->head, nm->flags);
   } else {
