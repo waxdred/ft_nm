@@ -11,6 +11,28 @@ SymbolNode *GetDuplicate(SymbolNode *head, const char *str) {
   return NULL;
 }
 
+Input *AddInput(Input **head, const char *name) {
+  Input *new_node = malloc(sizeof(Input));
+  if (!new_node) {
+    perror("malloc");
+    exit(1);
+  }
+  ft_bzero(new_node, sizeof(Input));
+  ft_strcpy(new_node->name, name);
+  if (!*head) {
+    new_node->next = *head;
+    *head = new_node;
+  } else {
+    Input *current = *head;
+    while (current->next) {
+      current = current->next;
+    }
+    new_node->next = current->next;
+    current->next = new_node;
+  }
+  return new_node;
+}
+
 SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
                     const char *name) {
   SymbolNode *duplicate = NULL;
@@ -49,6 +71,25 @@ SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
     current->prev = current;
   }
   return new_node;
+}
+
+void free_nm() {
+  t_nm *nm = get_nm(NULL);
+  if (nm->head) {
+    free_symbol_list(nm->head);
+  }
+  if (nm->flags.input) {
+    free_input_list(nm->flags.input);
+  }
+  free(nm);
+}
+
+void free_input_list(Input *head) {
+  while (head) {
+    Input *tmp = head;
+    head = head->next;
+    free(tmp);
+  }
 }
 
 void free_symbol_list(SymbolNode *head) {
