@@ -30,6 +30,10 @@
 typedef int typesElf;
 typedef int typesEndian;
 
+typedef struct Input {
+  char name[256];
+  struct Input *next;
+} Input;
 typedef struct s_flag {
   int8_t a;
   int8_t g;
@@ -39,7 +43,9 @@ typedef struct s_flag {
   int8_t D;
   int8_t r;
   int8_t elf;
+  Input *input;
   char *file;
+  int nb_file;
 } t_flag;
 
 typedef struct SymbolNode {
@@ -77,19 +83,17 @@ typedef struct s_nm {
 
   // interface
   void (*InitElf)(void *map);
+  void (*free_nm)();
   void (*ParseTable)();
   void (*List_symbols)(void *map);
   void (*Set_Elf)();
   void (*Free_list)(SymbolNode *head);
+  void (*Free_input)(Input *head);
   SymbolNode *(*AddNode)(SymbolNode **head, unsigned long address, char type,
                          const char *name);
 } t_nm;
-
-char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name,
-                     char *section_name);
-
-char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name,
-                        char *section_name);
+char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr);
+char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr);
 char *ft_strScpy(char *dst, const char *src, int start);
 char *ft_strchr(const char *str, int c);
 char *ft_strcpy(char *dst, const char *src);
@@ -97,12 +101,15 @@ char *ft_strdup(const char *s);
 int ft_strcasecmp(const char *s1, const char *s2);
 int ft_strcmp(const char *s1, const char *s2);
 int get_format(void *map);
+void free_nm();
 void Print_Line_Addr(unsigned long addr, char type, char *name, typesElf is,
                      int isAddr);
 int parse_flags(int ac, char **argv);
+int ft_putstr_fd(const char *str, int fd);
 t_nm *get_nm(t_nm *nm);
 t_nm *init_nm(void);
 uint64_t swap_uint64(uint64_t val);
+void free_input_list(Input *head);
 void InitElf(void *map);
 void ParseTable32();
 void ParseTable64();
@@ -112,6 +119,8 @@ void Sort(SymbolNode **head);
 void free_symbol_list(SymbolNode *head);
 void ft_bzero(void *s, size_t n);
 void list_symbols(void *map);
+int ft_putstr(char *str);
+Input *AddInput(Input **head, const char *name);
 SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
                     const char *name);
 SymbolNode *getMajList(SymbolNode *head);
