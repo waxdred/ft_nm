@@ -46,6 +46,15 @@ void printNode(SymbolNode *current, t_flag flag, t_nm *nm) {
                (unsigned long)(current->address & 0xFFFFFFFF), current->type,
                getPrefix(current->unscore), current->name);
 
+    } else if (current->type == 'U') {
+      printFlaga(flag);
+      if (nm->type == ELF64) {
+        printf("                 %c %s%s\n", current->type,
+               getPrefix(current->unscore), current->name);
+      } else if (nm->type == ELF32) {
+        printf("         %c %s%s\n", current->type, getPrefix(current->unscore),
+               current->name);
+      }
     } else if (current->type != 'A') {
       if (current->address != ULONG_MAX) {
         printFlaga(flag);
