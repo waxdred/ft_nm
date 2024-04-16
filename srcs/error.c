@@ -2,15 +2,13 @@
 
 void print_prg(const char *prg, const char *prefix, const char *error) {
   if (prefix) {
-    dprintf(2, "%s", prefix);
-    dprintf(2, " - ");
+    ft_putstr_fd(prefix, STDERR_FILENO);
+    ft_putstr_fd(" - ", STDERR_FILENO);
   }
   if (error) {
-    dprintf(2, "%s", prg);
-    dprintf(2, ": ");
-    dprintf(2, "%s", error);
-    dprintf(2, "\n");
-  } else {
-    perror(prg);
+    ft_putstr_fd(prg, STDERR_FILENO);
+    ft_putstr_fd(": ", STDERR_FILENO);
+    ft_putstr_fd(error, STDERR_FILENO);
+    ft_putstr_fd("\n", STDERR_FILENO);
   }
 }
