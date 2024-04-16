@@ -1,5 +1,22 @@
 #include "../includes/nm.h"
 
+int ft_strlen(const char *s) {
+  size_t i;
+  i = 0;
+  while (s[i])
+    i++;
+  return (i);
+}
+
+char *ft_strdup(const char *s) {
+  size_t len = ft_strlen(s);
+  char *dst = (char *)malloc(len + 1);
+  if (!dst) {
+    return NULL;
+  }
+  return ft_strcpy(dst, s);
+}
+
 int ft_strcasecmp(const char *s1, const char *s2) {
   while (*s1 != '\0' && *s2 != '\0') {
     int diff = tolower(*s1) - tolower(*s2);
