@@ -14,6 +14,10 @@
 #include <unistd.h>
 #define ERR_NO_PRG "« a.out »: pas de tel fichier"
 
+#define SPECIAL_CHARS "_.-@#!&$%*"
+
+// Section Header Table
+
 #define ELF32 (1 << 0)
 #define ELF64 (1 << 1)
 #define L_ENDIAN (1 << 2)
@@ -89,8 +93,11 @@ SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
                     const char *name);
 SymbolNode *getMajList(SymbolNode *head);
 SymbolNode *reverse_list(SymbolNode *head);
-char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name);
-char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name);
+char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name,
+                     char *section_name);
+
+char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name,
+                        char *section_name);
 int get_format(void *map);
 int parse_flags(int ac, char **argv);
 t_nm *get_nm(t_nm *nm);
@@ -112,4 +119,5 @@ void print_prg(const char *prg, const char *prefix, const char *error);
 void set_elf();
 char *ft_strcpy(char *dst, const char *src);
 char *ft_strScpy(char *dst, const char *src, int start);
+char *ft_strdup(const char *s);
 #endif
