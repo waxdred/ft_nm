@@ -12,14 +12,14 @@ int isPrt(char c) {
 
 void printFlaga(t_flag flag) {
   if (flag.a) {
-    printf("%s:\n", get_nm(NULL)->flags.file);
+    ft_putstr(get_nm(NULL)->flags.file);
+    ft_putstr(": ");
   }
 }
 
 void printNode(SymbolNode *current, t_flag flag, t_nm *nm) {
   if (current) {
-    if (flag.u) {
-    } else if (current->type == 'A' && current->address != ULONG_MAX) {
+    if (current->type == 'A' && current->address != ULONG_MAX) {
       printFlaga(flag);
       Print_Line_Addr(current->address, current->type, current->name, nm->type,
                       PRINT_ADDR_SYMBOL);
@@ -62,8 +62,13 @@ void printNode(SymbolNode *current, t_flag flag, t_nm *nm) {
                           nm->type, PRINT_NO_ADDR_SYMBOL);
         } else if (!flag.g) {
           printFlaga(flag);
-          Print_Line_Addr(current->address, current->type, current->name,
-                          nm->type, PRINT_SYMBOL);
+          if (current->type == 'n' || current->type == 't') {
+            Print_Line_Addr(current->address, current->type, current->name,
+                            nm->type, PRINT_NO_ADDR_SYMBOL);
+          } else {
+            Print_Line_Addr(current->address, current->type, current->name,
+                            nm->type, PRINT_SYMBOL);
+          }
         }
       }
     }
