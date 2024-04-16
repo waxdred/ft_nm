@@ -1,17 +1,43 @@
 #include "../includes/nm.h"
 
+char *TrimSpecialChars(char *name) {
+  int i = 0;
+  int k = 0;
+  int check = 0;
+  char *str = ft_strdup(name);
+  while (name[i]) {
+    check = 0;
+    for (int j = 0; SPECIAL_CHARS[j]; j++) {
+      if (str[i] == SPECIAL_CHARS[j]) {
+        check = 1;
+        break;
+      }
+    }
+    if (check == 0) {
+      str[k] = name[i];
+      k++;
+    }
+    i++;
+  }
+  str[k] = '\0';
+  return str;
+}
+
 int compareNames(SymbolNode *a, SymbolNode *b) {
-  int result = ft_strcasecmp(a->name, b->name);
+  char *nameA = TrimSpecialChars(a->name);
+  char *nameB = TrimSpecialChars(b->name);
+  int result = ft_strcasecmp(nameA, nameB);
   if (result == 0) {
     if (a->type < b->type) {
-      return -1;
+      result = -1;
     } else if (a->type > b->type) {
-      return 1;
+      result = 1;
     } else {
-      return 0;
+      result = 0;
     }
   }
-
+  free(nameA);
+  free(nameB);
   return result;
 }
 
