@@ -60,5 +60,7 @@ int main(int argc, char **argv) {
     close(fd);
     input = input->next;
   }
+  free_input_list(nm->flags.input);
+  free(nm);
   return 0;
 }
