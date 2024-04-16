@@ -6,10 +6,9 @@ static void printHelpCmd() {
                "avant chaque symbole\n",
                STDERR_FILENO);
   ft_putstr_fd("\t-p, \tNe pas trier les symboles\n", STDERR_FILENO);
-  ft_putstr_fd("\t-e, \t(ignoré)\n", STDERR_FILENO);
-  ft_putstr_fd("\t-D, \tAfficher les symboles dynamiques au lieu des "
-               "symboles normaux\n",
+  ft_putstr_fd("\t-j, \tUn synonyme pour --format=just-symbols\n",
                STDERR_FILENO);
+  ft_putstr_fd("\t-e, \t(ignoré)\n", STDERR_FILENO);
   ft_putstr_fd("\t-g, \tAfficher uniquement les symboles externes\n",
                STDERR_FILENO);
 }
@@ -47,11 +46,11 @@ static int ft_check(t_nm *nm, char opt) {
   case 'p':
     nm->flags.p = 1;
     break;
+  case 'j':
+    nm->flags.j = 1;
+    break;
   case 'e':
     nm->flags.e = 1;
-    break;
-  case 'D':
-    nm->flags.D = 1;
     break;
   case 'g':
     nm->flags.g = 1;
@@ -68,7 +67,7 @@ int parse_flags(int ac, char **argv) {
   opt = 0;
   i = 1;
   while (i < ac) {
-    ft_getopt(argv[i], "?hApeDg", &opt);
+    ft_getopt(argv[i], "?hApegj", &opt);
     if (opt == -2) {
       return EXIT_FAILURE;
     }
