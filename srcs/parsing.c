@@ -1,5 +1,19 @@
 #include "../includes/nm.h"
 
+static void printHelpCmd() {
+  ft_putstr_fd("Usage: nm [option(s)] [fichier(s)]\n", STDERR_FILENO);
+  ft_putstr_fd("Les options sont :\n\t-A,\tAfficher le nom du fichier d'entrée "
+               "avant chaque symbole\n",
+               STDERR_FILENO);
+  ft_putstr_fd("\t-p, \tNe pas trier les symboles\n", STDERR_FILENO);
+  ft_putstr_fd("\t-e, \t(ignoré)\n", STDERR_FILENO);
+  ft_putstr_fd("\t-D, \tAfficher les symboles dynamiques au lieu des "
+               "symboles normaux\n",
+               STDERR_FILENO);
+  ft_putstr_fd("\t-g, \tAfficher uniquement les symboles externes\n",
+               STDERR_FILENO);
+}
+
 static void ft_getopt(char *av, char *flag, int *opt) {
   const char *optchar;
 
@@ -8,7 +22,7 @@ static void ft_getopt(char *av, char *flag, int *opt) {
     return;
   } else if (av[0] == '-' && av[2] != '\0') {
     *opt = -2;
-    fprintf(stderr, "ft_ping: invalid arguments: '%s'\n", av);
+    ft_putstr_fd("ft_nm: invalid option -- '", STDERR_FILENO);
     return;
   }
   *opt = av[1];
@@ -22,9 +36,11 @@ static void ft_getopt(char *av, char *flag, int *opt) {
 static int ft_check(t_nm *nm, char opt) {
   switch (opt) {
   case '?':
-    exit(0);
+    printHelpCmd();
+    return EXIT_FAILURE;
   case 'h':
-    exit(0);
+    printHelpCmd();
+    return EXIT_FAILURE;
   case 'A':
     nm->flags.a = 1;
     break;
@@ -59,9 +75,8 @@ int parse_flags(int ac, char **argv) {
     if (ft_check(nm, opt) == EXIT_FAILURE) {
       return EXIT_FAILURE;
     } else if (opt == -1) {
-      if (nm->flags.file == NULL) {
-        nm->flags.file = argv[i];
-      }
+      AddInput(&nm->flags.input, argv[i]);
+      nm->flags.nb_file++;
     }
     ++i;
   }
