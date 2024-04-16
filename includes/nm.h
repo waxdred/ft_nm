@@ -40,7 +40,7 @@ typedef struct s_flag {
   int8_t u;
   int8_t p;
   int8_t e;
-  int8_t D;
+  int8_t j;
   int8_t r;
   int8_t elf;
   Input *input;
