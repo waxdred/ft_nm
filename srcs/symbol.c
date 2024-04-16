@@ -1,25 +1,27 @@
 #include "../includes/nm.h"
 #include <stdio.h>
 
-#define DEBUG 1
+#define DEBUG 0
 
-#define NAME ".LFB3"
+#define NAME "environ"
 
-char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
+char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name,
+                        char *section_name) {
   int TEST = ft_strcmp(name, NAME) == 0 ? 1 : 0;
   static int i = 0;
   char type = ' ';
   unsigned char bind = ELF32_ST_BIND(sym->st_info);
 
-  // TODO found 'r' and 'd'
-  //
   if (TEST && DEBUG) {
-    // print name of the section
     printf("32\n");
     printf("sh_name: %s\n", name);
     printf("i = %d\n", i);
-    printf("sym->st_shndx: %d, bind = %c\n", sym->st_shndx, bind);
-    // printf("shdr[sym->st_shndx].sh_type: %d\n", shdr[sym->st_shndx].sh_type);
+    printf("sym->st_shndx: %d, bind = %d\n", sym->st_shndx, bind);
+    printf("shdr[sym->st_shndx].sh_type: %d\n", shdr[sym->st_shndx].sh_type);
+    printf("shdr[sym->st_shndx].sh_flags: %d\n", shdr[sym->st_shndx].sh_flags);
+    printf("sym->st_value: %d\n", sym->st_value);
+    // print section name
+    printf("section_name: %s\n", section_name);
     sleep(1);
   }
   if (sym->st_shndx == SHN_UNDEF) {
@@ -48,7 +50,10 @@ char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
       break;
     case SHT_PROGBITS:
       if (shdr[sym->st_shndx].sh_flags & SHF_WRITE) {
-        type = 'D'; // writable data
+        if (bind == STB_WEAK)
+          type = 'V';
+        else
+          type = 'D'; // writable data
       } else if (shdr[sym->st_shndx].sh_flags & SHF_EXECINSTR) {
         type = 'T'; // Executable Code
       } else {
@@ -57,7 +62,10 @@ char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
       break;
     case SHT_NOBITS:
       if (shdr[sym->st_shndx].sh_flags == (SHF_ALLOC | SHF_WRITE)) {
-        type = 'B'; // uninitialized data
+        if (bind == STB_LOCAL || bind == STB_GLOBAL)
+          type = 'B';
+        if (bind == STB_WEAK)
+          type = 'V'; // uninitialized data
       } else if (shdr[sym->st_shndx].sh_flags & SHF_WRITE) {
         type = 'B'; // uninitialized data
       } else {
@@ -91,7 +99,8 @@ char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr, char *name) {
   return type;
 }
 
-char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name) {
+char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name,
+                     char *section_name) {
   int TEST = ft_strcmp(name, NAME) == 0 ? 1 : 0;
   static int i = 0;
   char type = ' ';
@@ -105,6 +114,7 @@ char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name) {
     printf("i = %d\n", i);
     printf("sym->st_shndx: %d, bind = %c\n", sym->st_shndx, bind);
     printf("shdr[sym->st_shndx].sh_type: %d\n", shdr[sym->st_shndx].sh_type);
+    printf("section_name: %s\n", section_name);
     sleep(1);
   }
 
@@ -140,7 +150,7 @@ char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr, char *name) {
       break;
     case SHT_NOBITS:
       if (shdr[sym->st_shndx].sh_flags == (SHF_ALLOC | SHF_WRITE)) {
-        type = 'B'; // uninitialized data
+        type = 'V'; // uninitialized data
       } else if (shdr[sym->st_shndx].sh_flags & SHF_WRITE) {
         type = 'B'; // uninitialized data
       } else {
