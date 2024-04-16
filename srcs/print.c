@@ -11,7 +11,7 @@ int isPrt(char c) {
 }
 
 void printFlaga(t_flag flag) {
-  if (flag.a) {
+  if (flag.a && !flag.j) {
     ft_putstr(get_nm(NULL)->flags.file);
     ft_putstr(": ");
   }
