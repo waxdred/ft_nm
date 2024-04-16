@@ -24,7 +24,9 @@ void set_elf() {
   nm->AddNode = &AddNode;
   nm->InitElf = &InitElf;
   nm->Free_list = &free_symbol_list;
+  nm->Free_input = &free_input_list;
   nm->List_symbols = &list_symbols;
+  nm->free_nm = &free_nm;
 }
 
 void InitElf(void *map) {
@@ -41,7 +43,6 @@ void InitElf(void *map) {
     nm->elf64.shdr = (Elf64_Shdr *)((char *)map + nm->elf64.hdr->e_shoff);
     nm->ParseTable = &ParseTable64;
   } else {
-    printf("Erreur\n");
     return;
   }
   if (nm->flags.elf & B_ENDIAN) {
