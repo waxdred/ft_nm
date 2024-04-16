@@ -23,11 +23,11 @@
 #define L_ENDIAN (1 << 2)
 #define B_ENDIAN (1 << 3)
 
-#define NO_UNDER_SCORE 0
-#define UNDER_SCORE 1
-#define DOUBLE_UNDER_SCORE 2
-#define TRIPLE_UNDER_SCORE 3
-#define DOT 4
+// #define NO_UNDER_SCORE 0
+// #define UNDER_SCORE 1
+// #define DOUBLE_UNDER_SCORE 2
+// #define TRIPLE_UNDER_SCORE 3
+// #define DOT 4
 
 typedef int typeUnscore;
 
@@ -50,7 +50,7 @@ typedef struct SymbolNode {
   unsigned long address;
   char type;
   char name[256];
-  typeUnscore unscore;
+  // typeUnscore unscore;
   struct SymbolNode *next;
   struct SymbolNode *prev;
   struct SymbolNode *duplicate;
