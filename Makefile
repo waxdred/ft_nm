@@ -25,6 +25,7 @@ SRC_GLOBAL						=	error.c   \
 												formatElf.c     \
 												parsing.c     \
 												sortList.c     \
+												ft_printf.c     \
 												endian.c     \
 												symbol.c     \
 												symbols.c     \
