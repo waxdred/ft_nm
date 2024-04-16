@@ -111,24 +111,27 @@ void PrintChar(int c, int size) {
 
 void Print_Line_Addr(unsigned long addr, char type, char *name, typesElf is,
                      int isAddr) {
+  t_nm *nm = get_nm(NULL);
   int len =
       GetSizeAddr(is) - ft_putnbr_base_len((unsigned long)(addr & 0xFFFFFFFF),
                                            "0123456789abcdef");
-  switch (isAddr) {
-  case PRINT_SYMBOL:
-    PrintChar(' ', GetSizeAddr(is));
-    break;
-  case PRINT_ADDR_SYMBOL:
-    PrintChar('0', len);
-    ft_putnbr_base((unsigned long)(addr & 0xFFFFFFFF), "0123456789abcdef");
-    break;
-  case PRINT_NO_ADDR_SYMBOL:
-    PrintChar('0', GetSizeAddr(is));
-    break;
+  if (!nm->flags.j) {
+    switch (isAddr) {
+    case PRINT_SYMBOL:
+      PrintChar(' ', GetSizeAddr(is));
+      break;
+    case PRINT_ADDR_SYMBOL:
+      PrintChar('0', len);
+      ft_putnbr_base((unsigned long)(addr & 0xFFFFFFFF), "0123456789abcdef");
+      break;
+    case PRINT_NO_ADDR_SYMBOL:
+      PrintChar('0', GetSizeAddr(is));
+      break;
+    }
+    ft_putchar(' ');
+    ft_putchar(type);
+    ft_putchar(' ');
   }
-  ft_putchar(' ');
-  ft_putchar(type);
-  ft_putchar(' ');
   ft_putstr(name);
   ft_putchar('\n');
 }
