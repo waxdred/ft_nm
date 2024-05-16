@@ -22,7 +22,6 @@ int main(int argc, char **argv) {
 
   Input *input = nm->flags.input;
   while (input != NULL) {
-    printf("input->name: %s\n", input->name);
     int fd = open(input->name, O_RDONLY);
     if (fd == -1) {
       print_prg(input->name, NULL, NULL);
