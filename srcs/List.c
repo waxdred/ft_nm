@@ -75,9 +75,6 @@ SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,
 
 void free_nm() {
   t_nm *nm = get_nm(NULL);
-  if (nm->head) {
-    free_symbol_list(nm->head);
-  }
   if (nm->flags.input) {
     free_input_list(nm->flags.input);
   }

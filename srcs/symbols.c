@@ -1,8 +1,8 @@
 #include "../includes/nm.h"
 
-void list_symbols(void *map) {
+void list_symbols() {
   t_nm *nm = get_nm(NULL);
-  nm->InitElf(map);
+  nm->InitElf();
 
   nm->ParseTable();
 
@@ -17,4 +17,5 @@ void list_symbols(void *map) {
     PrintNm(nm->head, nm->flags);
   }
   nm->Free_list(nm->head);
+  nm->head = NULL;
 }

@@ -83,7 +83,7 @@ void PrintNm(SymbolNode *head, t_flag flag) {
     SymbolNode *tmp = current->duplicate;
     while (tmp) {
       printNode(tmp, flag, nm);
-      tmp = tmp->duplicate;
+      tmp = tmp->next;
     }
     current = current->next;
   }

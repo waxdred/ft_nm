@@ -29,18 +29,17 @@ void set_elf() {
   nm->free_nm = &free_nm;
 }
 
-void InitElf(void *map) {
+void InitElf() {
   t_nm *nm = get_nm(NULL);
-  nm->map = map;
   if (nm->flags.elf & ELF32) {
     nm->type = ELF32;
-    nm->elf32.hdr = (Elf32_Ehdr *)map;
-    nm->elf32.shdr = (Elf32_Shdr *)((char *)map + nm->elf32.hdr->e_shoff);
+    nm->elf32.hdr = (Elf32_Ehdr *)nm->map;
+    nm->elf32.shdr = (Elf32_Shdr *)((char *)nm->map + nm->elf32.hdr->e_shoff);
     nm->ParseTable = &ParseTable32;
   } else if (nm->flags.elf & ELF64) {
     nm->type = ELF64;
-    nm->elf64.hdr = (Elf64_Ehdr *)map;
-    nm->elf64.shdr = (Elf64_Shdr *)((char *)map + nm->elf64.hdr->e_shoff);
+    nm->elf64.hdr = (Elf64_Ehdr *)nm->map;
+    nm->elf64.shdr = (Elf64_Shdr *)((char *)nm->map + nm->elf64.hdr->e_shoff);
     nm->ParseTable = &ParseTable64;
   } else {
     return;

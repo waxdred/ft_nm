@@ -27,6 +27,7 @@
 #define ELF64 (1 << 1)
 #define L_ENDIAN (1 << 2)
 #define B_ENDIAN (1 << 3)
+
 typedef int typesElf;
 typedef int typesEndian;
 
@@ -34,6 +35,7 @@ typedef struct Input {
   char name[256];
   struct Input *next;
 } Input;
+
 typedef struct s_flag {
   int8_t a;
   int8_t g;
@@ -52,7 +54,7 @@ typedef struct SymbolNode {
   unsigned long address;
   char type;
   char name[256];
-  // typeUnscore unscore;
+
   struct SymbolNode *next;
   struct SymbolNode *prev;
   struct SymbolNode *duplicate;
@@ -82,16 +84,17 @@ typedef struct s_nm {
   void *map;
 
   // interface
-  void (*InitElf)(void *map);
+  void (*InitElf)();
   void (*free_nm)();
   void (*ParseTable)();
-  void (*List_symbols)(void *map);
+  void (*List_symbols)();
   void (*Set_Elf)();
   void (*Free_list)(SymbolNode *head);
   void (*Free_input)(Input *head);
   SymbolNode *(*AddNode)(SymbolNode **head, unsigned long address, char type,
                          const char *name);
 } t_nm;
+
 char get_symbol_type(Elf64_Sym *sym, Elf64_Shdr *shdr);
 char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr);
 char *ft_strScpy(char *dst, const char *src, int start);
@@ -110,7 +113,7 @@ t_nm *get_nm(t_nm *nm);
 t_nm *init_nm(void);
 uint64_t swap_uint64(uint64_t val);
 void free_input_list(Input *head);
-void InitElf(void *map);
+void InitElf();
 void ParseTable32();
 void ParseTable64();
 void PrintNm(SymbolNode *head, t_flag flag);
@@ -118,7 +121,7 @@ void PrintNoSymbol(const char *prog);
 void Sort(SymbolNode **head);
 void free_symbol_list(SymbolNode *head);
 void ft_bzero(void *s, size_t n);
-void list_symbols(void *map);
+void list_symbols();
 int ft_putstr(char *str);
 Input *AddInput(Input **head, const char *name);
 SymbolNode *AddNode(SymbolNode **head, unsigned long address, char type,

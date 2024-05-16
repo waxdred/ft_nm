@@ -3,6 +3,7 @@
 
 int main(int argc, char **argv) {
   t_nm *nm = init_nm();
+  nm->Set_Elf();
 
   if (nm == NULL) {
     return -1;
@@ -21,6 +22,7 @@ int main(int argc, char **argv) {
 
   Input *input = nm->flags.input;
   while (input != NULL) {
+    printf("input->name: %s\n", input->name);
     int fd = open(input->name, O_RDONLY);
     if (fd == -1) {
       print_prg(input->name, NULL, NULL);
@@ -39,24 +41,23 @@ int main(int argc, char **argv) {
       ft_putstr(":");
       ft_putstr("\n");
     }
-    void *map = mmap(NULL, my_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-    if (map == MAP_FAILED) {
+    nm->map = mmap(NULL, my_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+    if (nm->map == MAP_FAILED) {
       print_prg(input->name, "mmap", NULL);
       close(fd);
       break;
     }
-    nm->flags.elf = get_format(map);
+    nm->flags.elf = get_format(nm->map);
     if (nm->flags.elf == 0) {
       ft_putstr_fd("ft_nm: ", STDERR_FILENO);
       ft_putstr_fd(nm->flags.file, STDERR_FILENO);
       ft_putstr_fd(": file format not recognized\n", STDERR_FILENO);
-      munmap(map, my_stat.st_size);
+      munmap(nm->map, my_stat.st_size);
       close(fd);
       break;
     }
-    nm->Set_Elf();
-    nm->List_symbols(map);
-    munmap(map, my_stat.st_size);
+    nm->List_symbols();
+    munmap(nm->map, my_stat.st_size);
     close(fd);
     input = input->next;
   }
