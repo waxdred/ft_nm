@@ -1,4 +1,4 @@
-#include "../includes/nm.h"
+#include "nm.h"
 
 t_nm *get_nm(t_nm *nm) {
   static t_nm *save;

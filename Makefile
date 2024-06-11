@@ -1,86 +1,83 @@
+
 ################################################################################
-##                               Présentation                                 ##
+##                               Code color                                   ##
 ################################################################################
 
 COLOR_NORM		=	\033[0m
-COLOR_RED		=	\033[31m
+COLOR_RED			=	\033[31m
 COLOR_PURPLE	=	\033[35m
 
 ################################################################################
 ##                               SRCS                                         ##
 ################################################################################
 
-MK = Makefile
+SRCS_DIR = srcs
+SRCS = List.c \
+       endian.c \
+       error.c \
+       formatElf.c \
+       ft_printf.c \
+       init.c \
+       main.c \
+       parseTable.c \
+       parsing.c \
+       print.c \
+       sortList.c \
+       symbol.c \
+       symbols.c \
+       tools.c
+OBJS_DIR = build
+OBJS = $(addprefix $(OBJS_DIR)/,$(subst $(SRCS_DIR),,$(SRCS:.c=.o)))
 
-# Headers
+NAME = ft_nm
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g3 -MMD -MP -Iincludes
+RM = rm -rf
 
-DIR_HDS				=	includes
-
-RELATIVE_HDS		= nm.h 
-
-# Code
-
-DIR_GLOBAL						=	srcs
-SRC_GLOBAL						=	error.c   \
-												formatElf.c     \
-												parsing.c     \
-												sortList.c     \
-												ft_printf.c     \
-												endian.c     \
-												symbol.c     \
-												symbols.c     \
-												List.c     \
-												init.c     \
-												print.c     \
-												parseTable.c     \
-												tools.c     \
-												main.c
+# Set the number of object files 
+NUM_OBJS = $(words $(OBJS))
 
 ################################################################################
 ##                       Compilation Environnement                            ##
 ################################################################################
 
-NAME	=	ft_nm
-CC		=	cc
-CFLAGS	=	-Wall -Werror -Wextra -O3 -g3 -ggdb# -fsanitize=address
-# Sources
-DIRS_SRC			=	$(DIR_GLOBAL)
-
-DIR_OBJ				=	obj
-
-SRCS		=	$(addprefix $(DIR_GLOBAL)/, $(SRC_GLOBAL))					\
-
-HDS			=	$(addprefix $(DIR_HDS)/, $(RELATIVE_HDS))
-OBJS		=	$(addprefix $(DIR_OBJ)/, $(SRCS:.c=.o))
-
-DEPENDS		=	$(HDS) $(MK) $(LIBFT_NAME)
-
-################################################################################
-##                                 Règles                                     ##
-################################################################################
-
-all		:	$(NAME)
-
-define src2obj
-
-$(DIR_OBJ)/$(1)/%.o:	$(1)/%.c $(2)
-	@mkdir -p $(DIR_OBJ)/$(1)
-	@printf "\r\033[K\t[✅]\t$(COLOR_PURPLE)$$< --> $$@\$(COLOR_NORM)"
-	@$(CC) $(CFLAGS) -c -o $$@ $$< $(INC_INC)
+# Define a function to print the progress bar 
+define print_progress
+	$(eval i = $(shell expr $(i) + 1))
+	$(eval PERCENT = $(shell expr $(i) '*' 100 '/' $(NUM_OBJS)))
+	@if [ $(i) -eq 1 ]; then \
+        printf "$(COLOR_PURPLE)Starting compilation...\n$(COLOR_NORM)"; \
+  fi
+	@printf "\r\033[K\t$(COLOR_PURPLE)[$(PERCENT)%%]\t--> $(COLOR_NORM)$<\$(COLOR_NORM)"
 endef
 
-$(foreach dir,$(DIRS_SRC),$(eval $(call src2obj,$(dir), $(DEPENDS))))
+# Compilation rule for object files
+$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(call print_progress)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME)	: $(DEPENDS) $(OBJS)
+# Include the dependency files
+-include $(OBJ:.o=.d)
+
+# Default target
+all: $(NAME)
+
+# Link the final executable
+$(NAME): $(OBJS)
 	@printf "\n[✅]\tCompilation of $(COLOR_PURPLE)$(NAME)\$(COLOR_NORM)\n"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
+# Clean up object files and dependency files
 clean:
-	@printf "[✅]\tDelete $(COLOR_RED)object of $(DIR_GLOBAL)$(COLOR_NORM) of $(NAME)\n"
-	@rm -rf $(DIR_OBJ)
+	@$(RM) $(OBJS_DIR)
+	@$(RM) $(DEPS_DIR)
 
+# Clean up object files, dependency files, and the executable
 fclean: clean
-	@printf "[✅]\tDelete $(COLOR_RED)all binary on $(DIR_LIBFT)$(COLOR_NORM)\n"
-	@rm -rf $(NAME)
+	@$(RM) $(NAME)
 
-re:	fclean all
+# Rebuild everything
+re: fclean all
+
+.PHONY: all clean fclean re

@@ -1,0 +1,268 @@
+[
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/List.o",
+      "srcs/List.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/List.c",
+    "output": "/home/wax/code/ft_nm/build/List.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/endian.o",
+      "srcs/endian.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/endian.c",
+    "output": "/home/wax/code/ft_nm/build/endian.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/error.o",
+      "srcs/error.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/error.c",
+    "output": "/home/wax/code/ft_nm/build/error.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/formatElf.o",
+      "srcs/formatElf.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/formatElf.c",
+    "output": "/home/wax/code/ft_nm/build/formatElf.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/ft_printf.o",
+      "srcs/ft_printf.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/ft_printf.c",
+    "output": "/home/wax/code/ft_nm/build/ft_printf.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/init.o",
+      "srcs/init.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/init.c",
+    "output": "/home/wax/code/ft_nm/build/init.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/main.o",
+      "srcs/main.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/main.c",
+    "output": "/home/wax/code/ft_nm/build/main.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/parseTable.o",
+      "srcs/parseTable.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/parseTable.c",
+    "output": "/home/wax/code/ft_nm/build/parseTable.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/parsing.o",
+      "srcs/parsing.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/parsing.c",
+    "output": "/home/wax/code/ft_nm/build/parsing.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/print.o",
+      "srcs/print.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/print.c",
+    "output": "/home/wax/code/ft_nm/build/print.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/sortList.o",
+      "srcs/sortList.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/sortList.c",
+    "output": "/home/wax/code/ft_nm/build/sortList.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/symbol.o",
+      "srcs/symbol.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/symbol.c",
+    "output": "/home/wax/code/ft_nm/build/symbol.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/symbols.o",
+      "srcs/symbols.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/symbols.c",
+    "output": "/home/wax/code/ft_nm/build/symbols.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/tools.o",
+      "srcs/tools.c"
+    ],
+    "directory": "/home/wax/code/ft_nm",
+    "file": "/home/wax/code/ft_nm/srcs/tools.c",
+    "output": "/home/wax/code/ft_nm/build/tools.o"
+  }
+]
