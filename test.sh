@@ -16,7 +16,7 @@ PASS=0
 find "$TEST_PATH" -type d -name .git -prune -o -type f -print0| while read -d $'\0' file
 do
   # Run nm on the file using your custom nm binary 
-  echo "Testing $file..."
+  echo "Testing $file:"
   output_my_nm=$( "$MY_NM_BINARY" "$file" 2>/dev/null) 
  
   # Run nm on the file using the system nm 

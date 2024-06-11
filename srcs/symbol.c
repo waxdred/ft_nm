@@ -1,4 +1,4 @@
-#include "../includes/nm.h"
+#include "nm.h"
 
 char get_symbol_type_32(Elf32_Sym *sym, Elf32_Shdr *shdr) {
   char type = ' ';

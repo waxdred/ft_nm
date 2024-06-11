@@ -1,4 +1,4 @@
-#include "../includes/nm.h"
+#include "nm.h"
 
 int isPrt(char c) {
   char *str = "RrDTW";
@@ -62,7 +62,8 @@ void printNode(SymbolNode *current, t_flag flag, t_nm *nm) {
                           nm->type, PRINT_NO_ADDR_SYMBOL);
         } else if (!flag.g) {
           printFlaga(flag);
-          if (current->type == 'n' || current->type == 't') {
+          if (current->type == 'n' || current->type == 't' ||
+              current->type == 'b') {
             Print_Line_Addr(current->address, current->type, current->name,
                             nm->type, PRINT_NO_ADDR_SYMBOL);
           } else {
